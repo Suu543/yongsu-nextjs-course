@@ -74,7 +74,7 @@ NextAuth에서는 사용자를 로그인하기 위해 사용할 수 있는 서�
 
 <img src="https://cdn-images-1.medium.com/max/1200/1*pv_S5hMI41dxZsBMSJ6tHw.png" />
 
-여기에서 Apple과 같은 여러 서비스 또는 프로바이더(Provider)를 볼 수 있습니다. 이 프로바이더를 사용하여 사용자가 자신의 Apple 계정으로 로그인할 수 있도록 할 수 있습니다. 또한 Auth0, Azure Active Directory 및 기타 다양한 서비스도 지원합니다. 이 중에서 이번 수업에서는 사용자가 Google 계정으로 로그인할 수 있도록 하는 방법을 알려드릴 것입니다.
+여기에서 Apple과 같은 여러 서비스 또는 프로바이더(Provider)를 볼 수 있습니다. 이 프로바이더를 사용하여 사용자가 자신의 Apple 계정으로 로그인할 수 있도록 할 수 있습니다. 또한 Auth, Azure Active Directory 및 기타 다양한 서비스도 지원합니다. 이 중에서 이번 수업에서는 사용자가 Google 계정으로 로그인할 수 있도록 하는 방법을 알려드릴 것입니다.
 
 이제 이 프로바이더(provider)를 설정하는 방법을 살펴보겠습니다.
 
@@ -411,6 +411,7 @@ export default function RootLayout({
 따라서 중괄호로 감싸고 여기서 'status'가 '비인증됨'인 경우에만 로그인 링크를 렌더링하도록 확인합니다. 그렇지 않으면 사용자 링크를 렌더링할 수 있습니다. 여기에서 'status'가 '인증됨'인 경우에만 'div'를 렌더링하고 그 안에 'session.user.name'을 렌더링합니다. 'user' 속성은 선택 사항이기 때문에 'status'가 '로딩 중'인 경우에는 사용자 객체가 없습니다. 그러나 이 경우에는 사용자가 확실히 있으므로 '!'를 추가하여 TypeScript 컴파일러에 사용자가 확실히 있다고 알릴 수 있습니다. 이 예제에서는 두 가지 별개의 조건이 있지만 JavaScript의 조건 연산자를 사용하여 '인증됨'인 경우 이것을 렌더링하고 그렇지 않으면 다른 것을 렌더링할 수도 있습니다. 어느 방법이든 이 컴포넌트에서는 이 훅과 React 컨텍스트를 사용하고 있으므로 이를 클라이언트 컴포넌트로 표시해야 합니다. 페이지 상단에 'use client'를 추가하겠습니다.
 
 ```tsx
+"use client";
 // app/NavBar.tsx
 import { useSession } from "next-auth/react";
 import Link from "next/link";

@@ -444,7 +444,7 @@ const Home = () => {
         fill
         src="https://bit.ly/react-cover"
         alt="coffee"
-        className="obejct-cover"
+        className="object-cover"
       />
     </main>
   );

@@ -213,7 +213,7 @@ Next.js 앱이 데이터베이스와 작업하기 위해서는 먼저 Prisma Cli
 3. 이 객체를 내보내기 위해 모듈에서 `export default`를 사용합니다.
 
 이렇게 생성된 Prisma Client를 사용하면 스키마에서 정의한 모델에 액세스할 수 있으며 해당 모델을 사용하여 사용자를 만들고, 읽고, 업데이트하고, 삭제할 수 있습니다. 예를 들어 `Prisma.user.findMany` 메서드를 사용하여 사용자를 찾거나 `Prisma.user.create`를 사용하여 사용자를 만들 수 있습니다.
-
+   
 ```tsx
 // prisma/client.ts
 import { PrismaClient } from "@prisma/client";
@@ -262,7 +262,7 @@ api 폴더로 이동하고, users 폴더를 열고 이 route.tsx 파일로 이�
 
 우선 상단에 있는 prisma를 가져오겠습니다. prisma/client에서 가져오며, 이것은 방금 생성한 클라이언트 파일입니다. 이 파일을 보겠습니다. 이 파일에서 prisma라는 이름의 상수를 내보냈습니다. 중괄호로 묶어 prisma를 가져옵니다. 그리고 이 함수에서 데이터베이스에서 모든 사용자를 가져 오려면 prisma.user.findMany를 호출하면 됩니다.
 
-이제 선택적으로 객체를 제공하고 사용자를 필터링할 수 있습니다. 예를 들어 여기에서 where를 객체로 설정할 수 있으며, 이 객체에서 이메일이나 기타 속성을 일부 값으로 설정하여 사용자를 필터링할 수 있습니다. 이제 여러 필터를 제공하고 논리 AND 또는 논리 OR을 사용하여 필터를 결합할 수도 있지만, 그러면 복잡해집니다. 이에 대한 자세한 내용은 문서를 참조하십시오.
+이제 선택적으로 객체를 제공하고 사용자를 필터링할 수 있습니다. 예를 들어 여기에서 where를 객체로 설정할 수 있으며, 이 객체에서 이메일이나 기타 속성을 일부 값으로 설정하여 사용자를 필터링할 수 있습니다. 이제 여러 필터를 제공하고 논리 AND 또는kdydw 논리 OR을 사용하여 필터를 결합할 수도 있지만, 그러면 복잡해집니다. 이에 대한 자세한 내용은 문서를 참조하십시오.
 
 그래서 모든 사용자를 가져오겠습니다. 이것은 프로미스를 반환하므로 await하여 사용자를 가져옵니다. 그런 다음 이 함수를 async로 만들고 마지막으로 응답에서 모든 이 사용자를 반환합니다.
 
@@ -290,7 +290,7 @@ export async function POST(request: NextRequest) {
 
 이제 브라우저로 돌아가서 api/users로 이동하겠습니다. 여기에 무엇이 있는지 확인할 수 있습니다. 아름답습니다. 이제 단일 사용자를 가져 오는 방법을 살펴보겠습니다. 그러려면 다른 루트 파일로 이동해야 합니다. id 폴더에 있는 파일이고, 여기에 다른 GET 함수가 있습니다. 다시 말하지만 상단에 prisma를 가져옵니다. 그런 다음이 함수에서 먼저 prisma.user.findUnique를 호출합니다.
 
-이 호출할 때 객체를 제공하며 이 객체에서 조건을 설정합니다. 여기에서 where를 객체로 설정하고 여기에 id를 params.id로 설정합니다. 이것이 여기에 전달한 매개 변수입니다. 그렇습니다. 앞서 params를 추가하고 구조 분해를 사용했습니다. 구문은 약간 혼란 스러울 수 있지만 믿으십시오. 시간이 지남에 따라 이해가되면 자연스럽게 사용할 수 있습니다.
+이 호출할 때 객체를 제공하며 이 객체에서 조건을 설정합니다. 여기에서 where를 객체로 설정하고 여기에 id를 params.id로 설정합니다. 이것이 여기에 전달한 매개 변수입니다. 그렇습니다. 앞서 params를 추가하고 구조 분해를 사용했습니다. 구문은 약간 혼란 스러울 수 있지만 믿으십시오. 시간이 지남에 따라 이해가되면 자연스럽게 사용할tjd 수 있습니다.
 
 findUnique를 호출합니다. 다시 프로미스를 반환하므로 사용자 객체를 얻으려면 기다려야합니다. 이 함수를 async로 만들고 사용자가 발견되지 않은 경우 null을 얻습니다. 따라서이 조건을 변경하고 사용자가 거짓 인 경우 이 오류를 반환하고 그렇지 않으면 사용자 객체와 응답을 반환합니다.
 
@@ -359,7 +359,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(validation.error.errors, { status: 404 });
   }
 
-  const user = prisma.user.create({
+  const user = await prisma.user.create({
     data: {
       name: body.name,
       email: body.email,
@@ -401,7 +401,7 @@ export async function POST(request: NextRequest) {
     where: { email: body.email },
   });
 
-  if (user) {
+  if (user) { 
     return NextResponse.json({ error: "User already exists" }, { status: 400 });
   }
 
